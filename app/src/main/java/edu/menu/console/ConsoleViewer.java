@@ -44,6 +44,8 @@ public class ConsoleViewer implements IViewer {
                     }
                     System.out.println(msg);
                 }
+                System.out.println(SELECTION_OPTION_MSG);
+
                 var res = scanner.nextLine();
                 action = fromResponse(res);
 
@@ -55,12 +57,17 @@ public class ConsoleViewer implements IViewer {
                             selected.add(hoveredOption);
                         }
                         break;
-                    case DOWN:
-                        hoveredOptionI = hoveredOptionI <= 0 ? 0 : hoveredOptionI - 1;
-                        break;
                     case UP:
+                        if (hoveredOptionI > 0) {
+                            hoveredOptionI--;
+                        }
+                        break;
+                    case DOWN:
                         var optionsLength = options.toArray().length;
                         hoveredOptionI = hoveredOptionI > optionsLength ? 0 : (hoveredOptionI + 1) % optionsLength;
+                        break;
+                    case ILLEGAL:
+                        throw new Exception("Unpexpected user input: \"" + res + "\"");
                     default:
                         break;
                 }
@@ -78,6 +85,7 @@ public class ConsoleViewer implements IViewer {
     }
 
     private SelectActionType fromResponse(String res) {
+        if (res == "") return SelectActionType.QUIT;
         switch (res.toLowerCase().trim().charAt(0)) {
             case 'p':
                 return SelectActionType.SELECT;
@@ -86,8 +94,9 @@ public class ConsoleViewer implements IViewer {
             case 's':
                 return SelectActionType.DOWN;
             case '\0':
-            default:
                 return SelectActionType.QUIT;
+            default:
+                return SelectActionType.ILLEGAL;
         }
     }
 
@@ -95,7 +104,8 @@ public class ConsoleViewer implements IViewer {
         QUIT,
         SELECT,
         UP,
-        DOWN
+        DOWN,
+        ILLEGAL
     }
 
 }

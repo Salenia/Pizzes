@@ -3,6 +3,7 @@ package edu.menu.console;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import edu.menu.common.interfaces.IOption;
 import edu.menu.common.interfaces.IViewer;
@@ -73,7 +74,7 @@ public class ConsoleViewer implements IViewer {
                 }
             } while (action != SelectActionType.QUIT);
 
-            return new MenuResult<OptionGroup>(new OptionGroup(selected.stream().toList()), null);
+            return new MenuResult<OptionGroup>(new OptionGroup(selected.stream().collect(Collectors.toList())), null);
         } catch (Exception e) {
             return new MenuResult<OptionGroup>(null, e);
         }

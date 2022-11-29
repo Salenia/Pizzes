@@ -19,7 +19,8 @@ public class MenuResult<T extends IOption> {
         return _err != null && _value == null;
     }
 
-    public T unwrap() {
+    public T unwrap() throws Exception {
+        if (isErr()) throw _err;
         return _value;
     }
 }

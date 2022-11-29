@@ -5,10 +5,6 @@
  */
 package pizzes;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.util.Scanner;
-
 import edu.menu.common.interfaces.IOption;
 import edu.menu.common.models.Menu;
 import edu.menu.common.models.options.StringOption;

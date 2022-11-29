@@ -86,7 +86,7 @@ public class ConsoleViewer implements IViewer {
     }
 
     private SelectActionType fromResponse(String res) {
-        if (res == "") return SelectActionType.QUIT;
+        if (res.trim() == "") return SelectActionType.QUIT;
         switch (res.toLowerCase().trim().charAt(0)) {
             case 'p':
                 return SelectActionType.SELECT;
